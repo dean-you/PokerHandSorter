@@ -28,7 +28,7 @@ namespace PokerHandSorter.Tests
         }
 
         [TestMethod()]
-        public void Play1Test_HighCard()
+        public void PlayTest_HighCard()
         {
             var t = new Game("5D 8C 9S JS AC 2C 5C 7D 8S QH");
             t.Play();
@@ -36,7 +36,7 @@ namespace PokerHandSorter.Tests
         }
 
         [TestMethod()]
-        public void Play1Test_ThreeAces_VS_Flush()
+        public void PlayTest_ThreeAces_VS_Flush()
         {
             var t = new Game("2D 9C AS AH AC 3D 6D 7D TD QD");
             t.Play();
@@ -44,7 +44,7 @@ namespace PokerHandSorter.Tests
         }
 
         [TestMethod()]
-        public void Play1Test_Flush()
+        public void PlayTest_Flush()
         {
             var t = new Game("2C 9C AC KC AC 3D 6D 7D TD QD");
             t.Play();
@@ -52,7 +52,7 @@ namespace PokerHandSorter.Tests
         }
 
         [TestMethod()]
-        public void Play1Test_Pair_HighCard()
+        public void PlayTest_Pair_HighCard()
         {
             var t = new Game("4D 6S 9H QH QC 3D 6D 7H QD QS");
             t.Play();
@@ -60,7 +60,7 @@ namespace PokerHandSorter.Tests
         }
 
         [TestMethod()]
-        public void Play1Test_FullHouse()
+        public void PlayTest_FullHouse()
         {
             var t = new Game("2H 2D 4C 4D 4S 3C 3D 3S 9S 9D");
             t.Play();
@@ -68,7 +68,7 @@ namespace PokerHandSorter.Tests
         }
 
         [TestMethod()]
-        public void Play1Test_FullHouse1()
+        public void PlayTest_FullHouse1()
         {
             var t = new Game("2H 2D 4C 4D 4S 4C 4D 4S 9S 9D");
             t.Play();
@@ -76,7 +76,7 @@ namespace PokerHandSorter.Tests
         }
 
         [TestMethod()]
-        public void Play1Test_Straight()
+        public void PlayTest_Straight()
         {
             var t = new Game("2H 3D 4C 5D 6S 3C 4D 5S 6S 7D");
             t.Play();
