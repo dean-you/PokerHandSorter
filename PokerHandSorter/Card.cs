@@ -8,14 +8,10 @@ namespace PokerHandSorter
 {
     public class Card
     {
-
         public char Suit { get; private set; }
         public int Value { get; private set; }
 
-
-        public Card(string card)
-        {
-            var valueDic = new Dictionary<char, int>()
+        private readonly Dictionary<char, int> valueDic = new Dictionary<char, int>()
             {
                 {'2', 2 },
                 {'3', 3 },
@@ -32,6 +28,8 @@ namespace PokerHandSorter
                 {'A', 14 }
             };
 
+        public Card(string card)
+        {
             Value = valueDic[card[0]];
             Suit = card[1];
         }

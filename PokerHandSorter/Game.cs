@@ -175,7 +175,6 @@ namespace PokerHandSorter
 
         private bool ComparePair()
         {
-            var player1Win = false;
             if (_player1.Pair1 > _player2.Pair1)
                 Player1Win = true;
             else if (_player1.Pair1 < _player2.Pair1)

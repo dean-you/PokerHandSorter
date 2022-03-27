@@ -33,7 +33,14 @@
                 _cardsSuit.Add(card.Suit);
             }
 
-            foreach (var valueTimes in _cardsValueTimes.OrderByDescending(x=> x.Key))
+            SetCardsValue();
+            Flush = IsFlush();
+            Straight = FiveCardsConsecutive();
+        }
+
+        private void SetCardsValue()
+        {
+            foreach (var valueTimes in _cardsValueTimes.OrderByDescending(x => x.Key))
             {
                 if (valueTimes.Value == 4)
                     FourKind = valueTimes.Key;
@@ -60,9 +67,6 @@
                         HighCard5 = valueTimes.Key;
                 }
             }
-
-            Flush = IsFlush();
-            Straight = FiveCardsConsecutive();
         }
 
         private int FiveCardsConsecutive()
