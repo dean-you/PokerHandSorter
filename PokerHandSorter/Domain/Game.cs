@@ -37,7 +37,7 @@ namespace PokerHandSorter
                 return;
             if (CompareTwoPairs())
                 return;
-            if (ComparePair())
+            if (ComparePair1())
                 return;
             CompareHighCard();
         }
@@ -101,47 +101,27 @@ namespace PokerHandSorter
 
         private bool CompareHighCard1()
         {
-            if (_player1.HighCard1 > _player2.HighCard1)
-                Player1Win = true;
-            else if (_player1.HighCard1 < _player2.HighCard1)
-                Player2Win = true;
-            return Player1Win || Player2Win;
+            return CompareCardValue(_player1.HighCard1, _player2.HighCard1);
         }
 
         private bool CompareHighCard2()
         {
-            if (_player1.HighCard2 > _player2.HighCard2)
-                Player1Win = true;
-            else if (_player1.HighCard2 < _player2.HighCard2)
-                Player2Win = true;
-            return Player1Win || Player2Win;
+            return CompareCardValue(_player1.HighCard2, _player2.HighCard2);
         }
 
         private bool CompareHighCard3()
         {
-            if (_player1.HighCard3 > _player2.HighCard3)
-                Player1Win = true;
-            else if (_player1.HighCard3 < _player2.HighCard3)
-                Player2Win = true;
-            return Player1Win || Player2Win;
+            return CompareCardValue(_player1.HighCard3, _player2.HighCard3);
         }
 
         private bool CompareHighCard4()
         {
-            if (_player1.HighCard4 > _player2.HighCard4)
-                Player1Win = true;
-            else if (_player1.HighCard4 < _player2.HighCard4)
-                Player2Win = true;
-            return Player1Win || Player2Win;
+            return CompareCardValue(_player1.HighCard4, _player2.HighCard4);
         }
 
         private bool CompareHighCard5()
         {
-            if (_player1.HighCard5 > _player2.HighCard5)
-                Player1Win = true;
-            else if (_player1.HighCard5 < _player2.HighCard5)
-                Player2Win = true;
-            return Player1Win || Player2Win;
+            return CompareCardValue(_player1.HighCard5, _player2.HighCard5);
         }
 
 
@@ -150,16 +130,9 @@ namespace PokerHandSorter
         {
             if (_player1.Pair1 > 0 && _player1.Pair2 >0 && _player2.Pair1 > 0 && _player2.Pair2 > 0)
             {
-                if (_player1.Pair1 > _player2.Pair1)
-                    Player1Win = true;
-                else if (_player1.Pair1 < _player2.Pair1)
-                    Player2Win = true;
-                else
+                if (!ComparePair1())
                 {
-                    if (_player1.Pair2 > _player2.Pair2)
-                        Player1Win = true;
-                    else if (_player1.Pair2 < _player2.Pair2)
-                        Player2Win = true;
+                    ComparePair2();
                 }
             }
             else if (_player1.Pair1 > 0 && _player1.Pair2 > 0)
@@ -173,40 +146,38 @@ namespace PokerHandSorter
             return Player1Win || Player2Win;
         }
 
-        private bool ComparePair()
+        private bool ComparePair1()
         {
-            if (_player1.Pair1 > _player2.Pair1)
-                Player1Win = true;
-            else if (_player1.Pair1 < _player2.Pair1)
-                Player2Win = true;
-            return Player1Win || Player2Win;
+            return CompareCardValue(_player1.Pair1, _player2.Pair1);
+        }
+
+        private bool ComparePair2()
+        {
+            return CompareCardValue(_player1.Pair2, _player2.Pair2);
         }
 
         private bool CompareThreeKind()
         {
-            if (_player1.ThreeKind > _player2.ThreeKind)
-                Player1Win = true;
-            else if (_player1.ThreeKind < _player2.ThreeKind)
-                Player2Win = true;
-            return Player1Win || Player1Win;
+            return CompareCardValue(_player1.ThreeKind, _player2.ThreeKind);
         }
 
         private bool ComapreFourKind()
         {
-            if (_player1.FourKind > _player2.FourKind)
-                Player1Win = true;
-            else if (_player1.FourKind < _player2.FourKind)
-                Player2Win = true;
-            return Player1Win || Player1Win;
+            return CompareCardValue(_player1.FourKind, _player2.FourKind);
         }
 
         private bool CompareStraightFlush()
         {
-            if (_player1.StraightFlush() > _player2.StraightFlush())
+            return CompareCardValue(_player1.StraightFlush(), _player2.StraightFlush());
+        }
+
+        private bool CompareCardValue(CardValue cardValue1, CardValue cardValue2 )
+        {
+            if (cardValue1 > cardValue2)
                 Player1Win = true;
-            else if (_player1.StraightFlush() < _player2.StraightFlush())
+            else if (cardValue1 < cardValue2)
                 Player2Win = true;
-            return Player1Win || Player1Win;
+            return Player1Win || Player2Win;
         }
     }
 }

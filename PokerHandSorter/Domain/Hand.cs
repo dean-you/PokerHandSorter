@@ -2,19 +2,19 @@
 {
     public class Hand
     {
-        private SortedDictionary<int, int> _cardsValueTimes = new SortedDictionary<int,int>();
-        private List<char> _cardsSuit = new List<char>();
+        private SortedDictionary<CardValue, int> _cardsValueTimes = new SortedDictionary<CardValue,int>();
+        private List<CardSuit> _cardsSuit = new List<CardSuit>();
 
-        public int Straight { get; private set; }
-        public int FourKind { get; private set; }
-        public int ThreeKind { get; private set; }
-        public int Pair1 { get; private set; }
-        public int Pair2 { get; private set; }
-        public int HighCard1 { get; private set; }
-        public int HighCard2 { get; private set; }
-        public int HighCard3 { get; private set; }
-        public int HighCard4 { get; private set; }
-        public int HighCard5 { get; private set; }
+        public CardValue Straight { get; private set; }
+        public CardValue FourKind { get; private set; }
+        public CardValue ThreeKind { get; private set; }
+        public CardValue Pair1 { get; private set; }
+        public CardValue Pair2 { get; private set; }
+        public CardValue HighCard1 { get; private set; }
+        public CardValue HighCard2 { get; private set; }
+        public CardValue HighCard3 { get; private set; }
+        public CardValue HighCard4 { get; private set; }
+        public CardValue HighCard5 { get; private set; }
         public bool Flush { get; }
 
         public Hand(string hand)
@@ -69,12 +69,12 @@
             }
         }
 
-        private int FiveCardsConsecutive()
+        private CardValue FiveCardsConsecutive()
         {
             if (_cardsValueTimes.Count != 5)
                 return 0;
             var firstTime = true;
-            var preValue = 0;
+            CardValue preValue = CardValue.None;
             foreach (var valueTimes in _cardsValueTimes)
             {
                 if (firstTime)
@@ -100,7 +100,7 @@
             return true;
         }
 
-        public int StraightFlush()
+        public CardValue StraightFlush()
         {
             if (Flush)
                 return Straight;
