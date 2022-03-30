@@ -1,4 +1,4 @@
-﻿namespace PokerHandSorter
+﻿namespace PokerHandSorter.Domain
 {
     public class Hand
     {
@@ -19,9 +19,12 @@
 
         public Hand(string hand)
         {
-            foreach (var item in hand.Split(' '))
+            var cards = hand.Split(' ');
+            if (cards.Length != 5)
+                throw new ArgumentException($"Invalid cards {cards} are dealt to player");
+            foreach (var cardStr in cards)
             {
-                var card = new Card(item);
+                var card = new Card(cardStr);
                 if (_cardsValueTimes.Keys.Contains(card.Value))
                     _cardsValueTimes[card.Value]++;
                 else

@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerHandSorter;
+using PokerHandSorter.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,16 +94,16 @@ namespace PokerHandSorter.Tests
 
         [TestMethod()]
         [ExpectedException(typeof(ArgumentException))]
-        public void HandTest_InvalidSuit()
+        public void HandTest_MoreThan5Cards_ShallThrowArgumentException()
         {
-            new Hand("2K 3D 4D 5D 6C");
+            new Hand("2D 3D 4D 5D 6C 7C");
         }
 
         [TestMethod()]
         [ExpectedException(typeof(ArgumentException))]
-        public void HandTest_InvalidCardValue()
+        public void HandTest_LessThan5Cards_ShallThrowArgumentException()
         {
-            new Hand("ZD 3D 4D 5D 6C");
+            new Hand("2D 3D 4D 5D");
         }
 
     }
