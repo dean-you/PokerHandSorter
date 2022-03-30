@@ -34,6 +34,16 @@ namespace PokerHandSorter.Tests
         }
 
         [TestMethod()]
+        public void HandTest_TwoPairs()
+        {
+            var t = new Hand("4H 4C 6S 6D KD");
+            Assert.AreEqual(CardValue.Six, t.Pair1);
+            Assert.AreEqual(CardValue.Four, t.Pair2);
+            Assert.AreEqual(CardValue.King, t.HighCard1);
+            Assert.AreEqual(CardValue.None, t.HighCard2);
+        }
+
+        [TestMethod()]
         public void HandTest_ThreeKind()
         {
             var t = new Hand("2D 2C 2S AH 3C");
@@ -51,6 +61,22 @@ namespace PokerHandSorter.Tests
         }
 
         [TestMethod()]
+        public void HandTest_FullHouse()
+        {
+            var t = new Hand("2D 2C 2S AH AC");
+            Assert.AreEqual(CardValue.Ace, t.Pair1);
+            Assert.AreEqual(CardValue.Two, t.ThreeKind);
+        }
+
+        [TestMethod()]
+        public void HandTest_Flush()
+        {
+            var t = new Hand("2D 3D 4D 5D 7D");
+            Assert.AreEqual(true, t.Flush);
+            Assert.AreEqual(CardValue.None, t.StraightFlush());
+        }
+
+        [TestMethod()]
         public void HandTest_StraightFlush()
         {
             var t = new Hand("2D 3D 4D 5D 6D");
@@ -64,6 +90,20 @@ namespace PokerHandSorter.Tests
             var t = new Hand("2D 3D 4D 5D 6C");
             var r = t.StraightFlush();
             Assert.AreEqual(CardValue.None, r);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void HandTest_InvalidSuit()
+        {
+            new Hand("2K 3D 4D 5D 6C");
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void HandTest_InvalidCardValue()
+        {
+            new Hand("ZD 3D 4D 5D 6C");
         }
 
     }

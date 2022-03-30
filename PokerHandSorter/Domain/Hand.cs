@@ -43,20 +43,20 @@
                     ThreeKind = valueTimes.Key;
                 else if (valueTimes.Value == 2)
                 {
-                    if (Pair1 == 0)
+                    if (Pair1 == CardValue.None)
                         Pair1 = valueTimes.Key;
                     else
                         Pair2 = valueTimes.Key;
                 }
                 else
                 {
-                    if (HighCard1 == 0)
+                    if (HighCard1 == CardValue.None)
                         HighCard1 = valueTimes.Key;
-                    else if (HighCard2 == 0)
+                    else if (HighCard2 == CardValue.None)
                         HighCard2 = valueTimes.Key;
-                    else if (HighCard3 == 0)
+                    else if (HighCard3 == CardValue.None)
                         HighCard3 = valueTimes.Key;
-                    else if (HighCard4 == 0)
+                    else if (HighCard4 == CardValue.None)
                         HighCard4 = valueTimes.Key;
                     else
                         HighCard5 = valueTimes.Key;
@@ -67,7 +67,7 @@
         private CardValue FiveCardsConsecutive()
         {
             if (_cardsValueTimes.Count != 5)
-                return 0;
+                return CardValue.None;
             var firstTime = true;
             CardValue preValue = CardValue.None;
             foreach (var valueTimes in _cardsValueTimes)
@@ -79,7 +79,7 @@
                     continue;
                 }
                 if (valueTimes.Key != preValue + 1)
-                    return 0;
+                    return CardValue.None;
                 preValue = valueTimes.Key;
             }
             return preValue;
@@ -100,7 +100,7 @@
             if (Flush)
                 return Straight;
             else
-                return 0;
+                return CardValue.None;
         }
 
     }
