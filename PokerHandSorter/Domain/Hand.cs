@@ -5,24 +5,20 @@
         private SortedDictionary<CardValue, int> _cardsValueTimes = new SortedDictionary<CardValue,int>();
         private List<CardSuit> _cardsSuit = new List<CardSuit>();
 
-        public CardValue Straight { get; private set; }
-        public CardValue FourKind { get; private set; }
-        public CardValue ThreeKind { get; private set; }
-        public CardValue Pair1 { get; private set; }
-        public CardValue Pair2 { get; private set; }
-        public CardValue HighCard1 { get; private set; }
-        public CardValue HighCard2 { get; private set; }
-        public CardValue HighCard3 { get; private set; }
-        public CardValue HighCard4 { get; private set; }
-        public CardValue HighCard5 { get; private set; }
+        public CardValue Straight { get; private set; } = CardValue.None;
+        public CardValue FourKind { get; private set; } = CardValue.None;
+        public CardValue ThreeKind { get; private set; } = CardValue.None;
+        public CardValue Pair1 { get; private set; } = CardValue.None;
+        public CardValue Pair2 { get; private set; } = CardValue.None;
+        public CardValue HighCard1 { get; private set; } = CardValue.None;
+        public CardValue HighCard2 { get; private set; } = CardValue.None;
+        public CardValue HighCard3 { get; private set; } = CardValue.None;
+        public CardValue HighCard4 { get; private set; } = CardValue.None;
+        public CardValue HighCard5 { get; private set; } = CardValue.None;
         public bool Flush { get; }
 
         public Hand(string hand)
         {
-            FourKind = 0;
-            ThreeKind = 0;
-            Pair1 = 0;
-            Pair2 = 0;
             foreach (var item in hand.Split(' '))
             {
                 var card = new Card(item);
@@ -32,13 +28,12 @@
                     _cardsValueTimes.Add(card.Value, 1);
                 _cardsSuit.Add(card.Suit);
             }
-
-            SetCardsValue();
+            SetHighestCardValueForSameCardValue();
             Flush = IsFlush();
             Straight = FiveCardsConsecutive();
         }
 
-        private void SetCardsValue()
+        private void SetHighestCardValueForSameCardValue()
         {
             foreach (var valueTimes in _cardsValueTimes.OrderByDescending(x => x.Key))
             {

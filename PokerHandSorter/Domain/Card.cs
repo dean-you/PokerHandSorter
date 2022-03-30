@@ -52,7 +52,7 @@ namespace PokerHandSorter
                 'H' => CardSuit.Hearts,
                 'S' => CardSuit.Spades,
                 'C' => CardSuit.Clubs,
-                _ => throw new ArgumentException("Invalid Card Suit!")
+                _ => throw new ArgumentException($"Invalid Card Suit {c}!")
             };
         }
 
@@ -73,7 +73,7 @@ namespace PokerHandSorter
                 'K' => CardValue.King,
                 'Q' => CardValue.Queen,
                 'A' => CardValue.Ace,
-                _ => throw new ArgumentException("Invalid Card Value! ")
+                _ => throw new ArgumentException($"Invalid Card Value {c}!")
             };
         }
     }
