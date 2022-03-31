@@ -2,7 +2,7 @@
 {
     public class Hand
     {
-        private SortedDictionary<CardValue, int> _cardsValueTimes = new SortedDictionary<CardValue,int>();
+        private SortedDictionary<CardValue, int> _cardsValueDuplicate = new SortedDictionary<CardValue,int>();
         private List<CardSuit> _cardsSuit = new List<CardSuit>();
 
         public CardValue Straight { get; private set; } = CardValue.None;
@@ -25,10 +25,10 @@
             foreach (var cardStr in cards)
             {
                 var card = new Card(cardStr);
-                if (_cardsValueTimes.Keys.Contains(card.Value))
-                    _cardsValueTimes[card.Value]++;
+                if (_cardsValueDuplicate.Keys.Contains(card.Value))
+                    _cardsValueDuplicate[card.Value]++;
                 else
-                    _cardsValueTimes.Add(card.Value, 1);
+                    _cardsValueDuplicate.Add(card.Value, 1);
                 _cardsSuit.Add(card.Suit);
             }
             SetHighestCardValueForSameCardValue();
@@ -38,52 +38,52 @@
 
         private void SetHighestCardValueForSameCardValue()
         {
-            foreach (var valueTimes in _cardsValueTimes.OrderByDescending(x => x.Key))
+            foreach (var cardValueDuplicate in _cardsValueDuplicate.OrderByDescending(x => x.Key))
             {
-                if (valueTimes.Value == 4)
-                    FourKind = valueTimes.Key;
-                else if (valueTimes.Value == 3)
-                    ThreeKind = valueTimes.Key;
-                else if (valueTimes.Value == 2)
+                if (cardValueDuplicate.Value == 4)
+                    FourKind = cardValueDuplicate.Key;
+                else if (cardValueDuplicate.Value == 3)
+                    ThreeKind = cardValueDuplicate.Key;
+                else if (cardValueDuplicate.Value == 2)
                 {
                     if (Pair1 == CardValue.None)
-                        Pair1 = valueTimes.Key;
+                        Pair1 = cardValueDuplicate.Key;
                     else
-                        Pair2 = valueTimes.Key;
+                        Pair2 = cardValueDuplicate.Key;
                 }
                 else
                 {
                     if (HighCard1 == CardValue.None)
-                        HighCard1 = valueTimes.Key;
+                        HighCard1 = cardValueDuplicate.Key;
                     else if (HighCard2 == CardValue.None)
-                        HighCard2 = valueTimes.Key;
+                        HighCard2 = cardValueDuplicate.Key;
                     else if (HighCard3 == CardValue.None)
-                        HighCard3 = valueTimes.Key;
+                        HighCard3 = cardValueDuplicate.Key;
                     else if (HighCard4 == CardValue.None)
-                        HighCard4 = valueTimes.Key;
+                        HighCard4 = cardValueDuplicate.Key;
                     else
-                        HighCard5 = valueTimes.Key;
+                        HighCard5 = cardValueDuplicate.Key;
                 }
             }
         }
 
         private CardValue FiveCardsConsecutive()
         {
-            if (_cardsValueTimes.Count != 5)
+            if (_cardsValueDuplicate.Count != 5)
                 return CardValue.None;
             var firstTime = true;
             CardValue preValue = CardValue.None;
-            foreach (var valueTimes in _cardsValueTimes)
+            foreach (var cardValueDuplicate in _cardsValueDuplicate)
             {
                 if (firstTime)
                 {
                     firstTime = false;
-                    preValue = valueTimes.Key;
+                    preValue = cardValueDuplicate.Key;
                     continue;
                 }
-                if (valueTimes.Key != preValue + 1)
+                if (cardValueDuplicate.Key != preValue + 1)
                     return CardValue.None;
-                preValue = valueTimes.Key;
+                preValue = cardValueDuplicate.Key;
             }
             return preValue;
         }
