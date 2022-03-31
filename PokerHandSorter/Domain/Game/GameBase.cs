@@ -1,48 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PokerHandSorter.Domain;
 
-namespace PokerHandSorter.Domain
+namespace PokerHandSorter
 {
-    public class Game
+    public class GameBase
     {
-        private Hand _player1;
-        private Hand _player2;
-
+        protected Hand _player1;
+        protected Hand _player2;
         public bool Player1Win { get; private set; }
         public bool Player2Win { get; private set; }
-        public Game(string cards)
+
+        protected void Init(string cards)
         {
             Player1Win = false;
             Player2Win = false;
             _player1 = new Hand(cards.Substring(0, 14));
             _player2 = new Hand(cards.Substring(15));
         }
-
-        public void Play()
-        {
-            if (CompareStraightFlush())
-                return;
-            if (ComapreFourKind())
-                return;
-            if (CompareFullHouse())
-                return;
-            if (CompareFlush())
-                return;
-            if (CompareStraight())
-                return;
-            if (CompareThreeKind())
-                return;
-            if (CompareTwoPairs())
-                return;
-            if (ComparePair1())
-                return;
-            CompareHighCard();
-        }
-
-        private bool CompareCardValue(CardValue cardValue1, CardValue cardValue2)
+        protected virtual bool CompareCardValue(CardValue cardValue1, CardValue cardValue2)
         {
             if (cardValue1 > cardValue2)
                 Player1Win = true;
@@ -51,17 +25,17 @@ namespace PokerHandSorter.Domain
             return Player1Win || Player2Win;
         }
 
-        private bool CompareStraightFlush()
+        protected bool CompareStraightFlush()
         {
             return CompareCardValue(_player1.StraightFlush(), _player2.StraightFlush());
         }
 
-        private bool ComapreFourKind()
+        protected bool ComapreFourKind()
         {
             return CompareCardValue(_player1.FourKind, _player2.FourKind);
         }
 
-        private bool CompareFullHouse()
+        protected bool CompareFullHouse()
         {
             if (_player1.ThreeKind > 0 && _player1.Pair1 > 0 && _player2.ThreeKind > 0 && _player2.Pair1 > 0)
             {
@@ -77,7 +51,7 @@ namespace PokerHandSorter.Domain
             return Player1Win || Player2Win;
         }
 
-        private bool CompareFlush()
+        protected bool CompareFlush()
         {
             if (_player1.Flush && _player2.Flush)
                 CompareHighCard();
@@ -88,17 +62,17 @@ namespace PokerHandSorter.Domain
             return Player1Win || Player2Win;
         }
 
-        private bool CompareStraight()
+        protected bool CompareStraight()
         {
             return CompareCardValue(_player1.Straight, _player2.Straight);
         }
 
-        private bool CompareThreeKind()
+        protected bool CompareThreeKind()
         {
             return CompareCardValue(_player1.ThreeKind, _player2.ThreeKind);
         }
 
-        private bool CompareTwoPairs()
+        protected bool CompareTwoPairs()
         {
             if (_player1.Pair1 > 0 && _player1.Pair2 > 0 && _player2.Pair1 > 0 && _player2.Pair2 > 0)
             {
@@ -118,7 +92,7 @@ namespace PokerHandSorter.Domain
             return Player1Win || Player2Win;
         }
 
-        private bool ComparePair1()
+        protected bool ComparePair1()
         {
             return CompareCardValue(_player1.Pair1, _player2.Pair1);
         }
@@ -128,7 +102,7 @@ namespace PokerHandSorter.Domain
             return CompareCardValue(_player1.Pair2, _player2.Pair2);
         }
 
-        private void CompareHighCard()
+        protected void CompareHighCard()
         {
             if (CompareHighCard1())
                 return;
@@ -166,6 +140,5 @@ namespace PokerHandSorter.Domain
         {
             return CompareCardValue(_player1.HighCard5, _player2.HighCard5);
         }
-
     }
 }

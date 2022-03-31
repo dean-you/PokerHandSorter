@@ -3,31 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PokerHandSorter.Domain;
+using PokerHandSorter.Domain.Game;
 
-namespace PokerHandSorter
+namespace PokerHandSorter.Application
 {
-    internal class Match
+    internal class Match: IMatch
     {
         public int Player1Score { get; private set; }
         public int Player2Score { get; private set; }
 
-        public Match()
+        private IGame _game;
+
+        public Match(IGame game)
         {
             Player1Score = 0;
             Player2Score = 0;
+            _game = game;
         }
 
         public void Play()
         {
-            var lines = File.ReadLines("poker-hands.txt");
-            foreach (var line in lines)
+            var games = File.ReadLines("poker-hands.txt");
+            foreach (var cards in games)
             {
-                var game = new Game(line);
-                game.Play();
-                if (game.Player1Win)
+                _game.Play(cards);
+                if (_game.Player1Win)
                     Player1Score++;
-                if (game.Player2Win)
+                if (_game.Player2Win)
                     Player2Score++;
             }
         }
