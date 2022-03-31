@@ -21,6 +21,9 @@ namespace PokerHandSorter.Application
             _game = game;
         }
 
+        /// <summary>
+        /// Load 500 games from the txt file and calculate the score for each player
+        /// </summary>
         public void Play()
         {
             var games = File.ReadLines("poker-hands.txt");

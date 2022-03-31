@@ -16,6 +16,13 @@ namespace PokerHandSorter
             _player1 = new Hand(cards.Substring(0, 14));
             _player2 = new Hand(cards.Substring(15));
         }
+
+        /// <summary>
+        /// Compare two card value. The method is virtual so we can extend the method later with different algorithm
+        /// </summary>
+        /// <param name="cardValue1"></param>
+        /// <param name="cardValue2"></param>
+        /// <returns>Return true if we can decide the winner</returns>
         protected virtual bool CompareCardValue(CardValue cardValue1, CardValue cardValue2)
         {
             if (cardValue1 > cardValue2)

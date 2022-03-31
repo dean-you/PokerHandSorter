@@ -17,6 +17,11 @@
         public CardValue HighCard5 { get; private set; } = CardValue.None;
         public bool Flush { get; }
 
+        /// <summary>
+        /// Init the class variables from input (5 cards)
+        /// </summary>
+        /// <param name="hand"></param>
+        /// <exception cref="ArgumentException"></exception>
         public Hand(string hand)
         {
             var cards = hand.Split(' ');
@@ -36,6 +41,9 @@
             Straight = FiveCardsConsecutive();
         }
 
+        /// <summary>
+        /// Set highest card value for repeated card from Four kind to High card
+        /// </summary>
         private void SetHighestCardValueForSameCardValue()
         {
             foreach (var cardValueDuplicate in _cardsValueDuplicate.OrderByDescending(x => x.Key))
@@ -67,6 +75,10 @@
             }
         }
 
+        /// <summary>
+        /// Return the highest card value for 5 consecutive cards
+        /// </summary>
+        /// <returns></returns>
         private CardValue FiveCardsConsecutive()
         {
             if (_cardsValueDuplicate.Count != 5)
@@ -88,6 +100,10 @@
             return preValue;
         }
 
+        /// <summary>
+        /// Return whether 5 cards are in the same suit.
+        /// </summary>
+        /// <returns></returns>
         private bool IsFlush()
         {
             for (int i = 1; i < _cardsSuit.Count; i++)
@@ -98,6 +114,10 @@
             return true;
         }
 
+        /// <summary>
+        /// Return highest card value for straight flush
+        /// </summary>
+        /// <returns></returns>
         public CardValue StraightFlush()
         {
             if (Flush)

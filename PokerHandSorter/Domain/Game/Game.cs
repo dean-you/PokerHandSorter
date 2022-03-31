@@ -13,6 +13,10 @@ namespace PokerHandSorter.Domain.Game
 
         }
 
+        /// <summary>
+        /// Compare the card value based on rank table.
+        /// </summary>
+        /// <param name="cards"></param>
         public void Play(string cards)
         {
             Init(cards);

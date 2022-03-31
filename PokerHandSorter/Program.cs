@@ -17,7 +17,9 @@ catch (Exception ex)
     Console.WriteLine($"{ex.Message}{Environment.NewLine}{ex.StackTrace}");
 }
 
-
+/// <summary>
+/// Dependency injection
+/// </summary>
 static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
         .ConfigureServices((_, services) =>
